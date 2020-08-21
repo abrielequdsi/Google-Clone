@@ -4,6 +4,7 @@ import { useStateProviderValue } from "../datalayer/StateProvider";
 import useGoogleSearch from "../useGoogleSearch";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
+import Response from "../response.js";
 
 import SearchIcon from "@material-ui/icons/Search";
 import DescriptionIcon from "@material-ui/icons/Description";
@@ -73,13 +74,33 @@ function SearchPage() {
         </div>
       </div>
 
-      {term && (
+      {true && (
         <div class="searchPage__results">
           <p className="searchPage__resultCount">
             About {data?.searchInformation.formattedTotalResults} results (
             {data?.searchInformation.formattedSearchTime}
-            seconds) for Tesla
+            seconds) for {term}
           </p>
+
+          {data?.items.map((item) => (
+            <div className="searchPage__result">
+              <a className="searchPage__resultLink" href={item.link}>
+                {item.pagemap?.cse_image?.length > 0 &&
+                  item.pagemap?.cse_image[0]?.src && (
+                    <img
+                      className="searchPage__resultImage"
+                      src={item.pagemap?.cse_image[0]?.src}
+                      alt=""
+                    />
+                  )}
+                {item.displayLink} ∆
+              </a>
+              <a href={item.link} className="searchPage__resultTitle">
+                <h2>{item.title}</h2>
+              </a>
+              <p className="searchPage__resultSnippet">{item.snippet}</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
