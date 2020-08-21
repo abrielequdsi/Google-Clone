@@ -17,9 +17,10 @@ function SearchPage() {
   const [{ term }] = useStateProviderValue();
 
   // Live API Call
-  // const {data} = useGoogleSearch(term);
+  const { data } = useGoogleSearch(term);
 
-  const data = Response;
+  // Mock API
+  // const data = Response;
 
   console.log(data);
 
@@ -74,7 +75,7 @@ function SearchPage() {
         </div>
       </div>
 
-      {true && (
+      {term && (
         <div class="searchPage__results">
           <p className="searchPage__resultCount">
             About {data?.searchInformation.formattedTotalResults} results (
